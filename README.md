@@ -65,12 +65,36 @@ Local typecheck/tests resolve `nsh` to `dev/nsh.ts` (a minimal reactivity shim).
 
 Test helpers live in `test/harness.ts` (`renderHook`, `withHook`, `runWithOwner`).
 
-## Publish
+## Publish (Trusted Publishing)
+
+Releases publish from GitHub Actions with [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC). No long-lived `NPM_TOKEN`.
+
+### One-time setup on npm
+
+1. Ensure the package exists on npm (first publish may still need interactive OTP once).
+2. Bind this repo’s workflow as a trusted publisher (needs OTP / web login):
 
 ```sh
-bun run check
-bun run pack:dry   # should include src/, LICENSE, README, CHANGELOG — not test/ or dev/
-npm publish        # or: bun publish
+bun run trust:github
+# equivalent:
+# npm trust github effect-atom-nsh --repo shlroland/effect-atom-nsh --file publish.yml -y
 ```
 
-`prepublishOnly` runs `bun run check`. `prepare` only patches the language service / installs lefthook when `.git` is present (skipped for consumers of the published tarball).
+Or in the npm UI: **Package → Settings → Trusted Publisher → GitHub Actions**
+
+| Field                | Value             |
+| -------------------- | ----------------- |
+| Organization or user | `shlroland`       |
+| Repository           | `effect-atom-nsh` |
+| Workflow filename    | `publish.yml`     |
+
+Complete a successful CI publish within **2 days** so the binding validates.
+
+### Cut a release
+
+```sh
+bun run release:patch   # bump → commit → tag v* → push
+# CI: .github/workflows/publish.yml runs npm publish via OIDC
+```
+
+`publish.yml` requires `id-token: write`, Node 24, and npm ≥ 11.5.1. Provenance is generated automatically (`publishConfig.provenance`).

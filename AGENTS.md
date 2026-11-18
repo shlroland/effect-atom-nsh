@@ -33,5 +33,7 @@ When the `skills` addon is present, also see `.agents/skills/effect-ts/SKILL.md`
 - `bun run test` — `bun test` (harness: `test/harness.ts`)
 - `bun run test:coverage` — `bun test --coverage`
 - `bun run check-types` — `tsc --noEmit`
-- `bun run pack:dry` — preview npm pack contents before publish
-- `bun run prepublishOnly` — runs `check` (also hooked for `npm publish`)
+- `bun run pack:dry` / `publish:dry` — preview pack / dry release plan
+- `bun run trust:github` — register npm Trusted Publisher for `publish.yml` (needs OTP)
+- `bun run release` / `release:patch|minor|major` — bump/tag/push; CI publishes via OIDC
+- `.github/workflows/publish.yml` — Trusted Publishing (`id-token: write`, no `NPM_TOKEN`)
