@@ -1,7 +1,7 @@
 {
   "name": "effect-atom-nsh",
   "version": "0.1.0",
-  "description": "Effect v4 library created by create-effect-t-stack.",
+  "description": "NSH (Native Shell) bindings for Effect Atom",
   "type": "module",
   "license": "MIT",
   "engines": {

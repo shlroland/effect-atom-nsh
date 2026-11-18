@@ -1,1 +1,16 @@
-export * from "./Greeting.ts"
+/**
+ * NSH bindings for Effect Atom.
+ *
+ * @stability unstable
+ * @since 0.1.0
+ */
+
+/**
+ * @since 0.1.0
+ */
+export * from "./Hooks.ts"
+
+/**
+ * @since 0.1.0
+ */
+export * from "./RegistryContext.ts"
