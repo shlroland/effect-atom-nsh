@@ -55,7 +55,22 @@ function App() {
 
 ```sh
 bun install
-bun run check
+bun run check          # lint + types + tests
+bun run test           # bun:test
+bun run test:coverage  # coverage report
+bun run pack:dry       # preview npm pack contents
 ```
 
 Local typecheck/tests resolve `nsh` to `dev/nsh.ts` (a minimal reactivity shim). Real NSH apps use the runtime’s generated types.
+
+Test helpers live in `test/harness.ts` (`renderHook`, `withHook`, `runWithOwner`).
+
+## Publish
+
+```sh
+bun run check
+bun run pack:dry   # should include src/, LICENSE, README, CHANGELOG — not test/ or dev/
+npm publish        # or: bun publish
+```
+
+`prepublishOnly` runs `bun run check`. `prepare` only patches the language service / installs lefthook when `.git` is present (skipped for consumers of the published tarball).

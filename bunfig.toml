@@ -1,0 +1,3 @@
+[test]
+# Resolve `nsh` via tsconfig paths → ./dev/nsh.ts
+root = "."

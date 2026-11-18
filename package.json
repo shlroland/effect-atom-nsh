@@ -4,17 +4,42 @@
   "description": "NSH (Native Shell) bindings for Effect Atom",
   "type": "module",
   "license": "MIT",
+  "author": "shlroland <shlroland1995@gmail.com>",
+  "homepage": "https://github.com/shlroland/effect-atom-nsh#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shlroland/effect-atom-nsh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shlroland/effect-atom-nsh/issues"
+  },
+  "keywords": [
+    "effect",
+    "atom",
+    "nsh",
+    "native-shell",
+    "reactivity",
+    "typescript"
+  ],
+  "sideEffects": [],
   "engines": {
-    "bun": ">=1.4.0"
+    "bun": ">=1.4.0",
+    "node": ">=20"
   },
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts"
+    "./*": "./src/*.ts",
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
-    "README.md"
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
@@ -23,11 +48,14 @@
   "scripts": {
     "check-types": "tsc --noEmit -p tsconfig.json",
     "test": "bun test",
+    "test:coverage": "bun test --coverage",
     "lint": "oxlint -c .oxlintrc.json -f unix src test packages && dprint check",
     "lint-fix": "oxlint -c .oxlintrc.json --fix src test packages && dprint fmt",
     "check": "bun run lint && bun run check-types && bun run test",
     "effect:diagnostics": "effect-language-service diagnostics --format json",
-    "prepare": "effect-language-service patch && lefthook install"
+    "prepare": "node ./scripts/prepare.mjs",
+    "prepublishOnly": "bun run check",
+    "pack:dry": "npm pack --dry-run --ignore-scripts"
   },
   "peerDependencies": {
     "effect": "^4.1.4"

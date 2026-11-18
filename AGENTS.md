@@ -30,5 +30,8 @@ When the `skills` addon is present, also see `.agents/skills/effect-ts/SKILL.md`
 ## Scripts
 
 - `bun run check` — lint, typecheck, test
-- `bun run test` — `bun test`
+- `bun run test` — `bun test` (harness: `test/harness.ts`)
+- `bun run test:coverage` — `bun test --coverage`
 - `bun run check-types` — `tsc --noEmit`
+- `bun run pack:dry` — preview npm pack contents before publish
+- `bun run prepublishOnly` — runs `check` (also hooked for `npm publish`)
