@@ -92,9 +92,14 @@ Complete a successful CI publish within **2 days** so the binding validates.
 
 ### Cut a release
 
+Uses [bumpp](https://github.com/antfu-collective/bumpp) locally (bump → commit → tag → push). CI publishes — do not put `npm publish` in bumpp `--execute`.
+
 ```sh
-bun run release:patch   # bump → commit → tag v* → push
-# CI: .github/workflows/publish.yml runs npm publish via OIDC
+bun run release          # interactive bump
+bun run release:patch    # non-interactive patch
+bun run release:minor
+bun run release:major
+# → pushes v* tag → .github/workflows/publish.yml (OIDC npm publish)
 ```
 
 `publish.yml` requires `id-token: write`, Node 24, and npm ≥ 11.5.1. Provenance is generated automatically (`publishConfig.provenance`).

@@ -57,12 +57,11 @@
     "prepare": "node ./scripts/prepare.mjs",
     "prepublishOnly": "bun run check",
     "pack:dry": "npm pack --dry-run --ignore-scripts",
-    "publish:dry": "node ./scripts/release.mjs --dry",
     "trust:github": "npm trust github effect-atom-nsh --repo shlroland/effect-atom-nsh --file publish.yml -y",
-    "release": "node ./scripts/release.mjs",
-    "release:patch": "node ./scripts/release.mjs patch",
-    "release:minor": "node ./scripts/release.mjs minor",
-    "release:major": "node ./scripts/release.mjs major"
+    "release": "bumpp --commit --tag --push",
+    "release:patch": "bumpp --release patch --commit --tag --push --yes",
+    "release:minor": "bumpp --release minor --commit --tag --push --yes",
+    "release:major": "bumpp --release major --commit --tag --push --yes"
   },
   "peerDependencies": {
     "effect": "^4.1.4"
@@ -71,6 +70,7 @@
     "@effect/language-service": "0.87.5",
     "@oxlint/plugins": "^1.93.0",
     "@types/bun": "latest",
+    "bumpp": "^12.3.0",
     "dprint": "^0.64.3",
     "effect": "^4.1.4",
     "lefthook": "^2.2.2",

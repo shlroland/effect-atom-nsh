@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-11-19
+
+### Added
+
+- Stable 1.0 release of NSH bindings for Effect Atom
+- npm Trusted Publishing via GitHub Actions OIDC (`.github/workflows/publish.yml`)
+- Release flow with `bumpp` (`bun run release` / `release:patch|minor|major`)
+
 ## [0.1.0] - 2026-11-18
 
 ### Added
