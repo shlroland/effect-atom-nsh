@@ -1,6 +1,6 @@
 {
   "name": "effect-atom-nsh",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "NSH (Native Shell) bindings for Effect Atom",
   "type": "module",
   "license": "MIT",
