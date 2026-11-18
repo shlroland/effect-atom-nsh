@@ -1,0 +1,46 @@
+{
+  "name": "effect-atom-nsh",
+  "version": "0.1.0",
+  "description": "Effect v4 library created by create-effect-t-stack.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.4.0"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test",
+    "lint": "oxlint -c .oxlintrc.json -f unix src test packages && dprint check",
+    "lint-fix": "oxlint -c .oxlintrc.json --fix src test packages && dprint fmt",
+    "check": "bun run lint && bun run check-types && bun run test",
+    "effect:diagnostics": "effect-language-service diagnostics --format json",
+    "prepare": "effect-language-service patch && lefthook install"
+  },
+  "peerDependencies": {
+    "effect": "^4.1.4"
+  },
+  "devDependencies": {
+    "@effect/language-service": "0.87.5",
+    "@oxlint/plugins": "^1.93.0",
+    "@types/bun": "latest",
+    "dprint": "^0.64.3",
+    "effect": "^4.1.4",
+    "lefthook": "^2.2.2",
+    "oxlint": "^1.93.0",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "bun@1.4.4"
+}

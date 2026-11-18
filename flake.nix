@@ -1,0 +1,40 @@
+{
+  description = "Dev shell for effect-atom-nsh (create-effect-t-stack)";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  };
+
+  outputs = {nixpkgs, ...}: let
+    # nixpkgs flakeExposed dropped x86_64-darwin; keep Intel Macs working.
+    systems = nixpkgs.lib.unique (nixpkgs.lib.systems.flakeExposed ++ ["x86_64-darwin"]);
+    forAllSystems = function:
+      nixpkgs.lib.genAttrs systems (
+        system: function nixpkgs.legacyPackages.${system}
+      );
+  in {
+    formatter = forAllSystems (pkgs: pkgs.alejandra);
+
+    # Bun: default runtime / package manager for this stack.
+    # Node: Active LTS (nodejs_24 as of 2026-10) for tooling that expects Node.
+    # pnpm/yarn: optional when using --package-manager beyond bun.
+    devShells = forAllSystems (pkgs: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          bun
+          nodejs_24
+          pnpm
+          yarn
+          git
+        ];
+
+        shellHook = ''
+          echo "effect-atom-nsh flake shell"
+          echo "  bun:  $(bun --version 2>/dev/null || echo missing)"
+          echo "  node: $(node --version 2>/dev/null || echo missing)"
+          echo "  Next: bun install && bun run dev"
+        '';
+      };
+    });
+  };
+}

@@ -1,0 +1,136 @@
+// Fingerprint (generated). Field classes: stack dims · addons[] · addonOptions · meta.
+// version = schema version; cliVersion = CLI release.
+{
+  "$schema": "https://raw.githubusercontent.com/shlroland/effect-t-stack/main/apps/cli/schemas/ets.schema.json",
+  "version": 1,
+  "name": "effect-atom-nsh",
+  "effect": "v4",
+  "template": "library",
+  "runtime": "bun",
+  "api": "none",
+  "database": "none",
+  "orm": "none",
+  "auth": "none",
+  "frontend": "none",
+  "backend": "none",
+  "addons": [
+    "skills",
+    "language-service",
+    "mcp",
+    "effect-style",
+    "flake"
+  ],
+  "addonOptions": {
+    "effect-style": {
+      "formatter": "dprint",
+      "dprint": {
+        "config": "dprint.json",
+        "alignWith": "Effect repo dprint.json (ASI, double quotes, no trailing commas, lineWidth 120)"
+      },
+      "linter": "oxlint",
+      "oxlint": {
+        "config": ".oxlintrc.json",
+        "paths": [
+          "src",
+          "test",
+          "packages"
+        ],
+        "plugin": "packages/effect-oxc"
+      },
+      "effectOxc": {
+        "package": "@effect/oxc",
+        "published": false,
+        "ownedCopy": "packages/effect-oxc",
+        "jsPlugin": "./packages/effect-oxc/src/oxlint/index.ts",
+        "upstream": "https://github.com/Effect-TS/effect/tree/7865dbbb7b6a91691921dbb4febedf3ab94a348b/packages/tools/oxc",
+        "note": "Owned copy until @effect/oxc publishes on npm. Then depend on the official package and delete packages/effect-oxc."
+      },
+      "conflictsWith": [
+        "biome",
+        "ultracite",
+        "oxlint-only",
+        "husky"
+      ],
+      "scripts": [
+        "lint",
+        "lint-fix"
+      ],
+      "checkIncludesLint": true,
+      "preCommit": {
+        "tool": "lefthook",
+        "config": "lefthook.yml"
+      },
+      "ci": {
+        "workflow": ".github/workflows/check.yml",
+        "command": "bun run check"
+      },
+      "prepare": "effect-language-service patch && lefthook install",
+      "catalog": "docs/DEPENDENCY-CATALOG.md"
+    },
+    "skills": {
+      "scope": "project",
+      "dir": ".agents/skills",
+      "lockfile": "skills-lock.json",
+      "selections": [
+        {
+          "source": "Effect-TS/skills",
+          "skills": [
+            "effect-ts",
+            "effect-v3-to-v4"
+          ]
+        }
+      ],
+      "rootEffectDevDependency": true,
+      "agentsMdLearningSection": true
+    },
+    "language-service": {
+      "package": "@effect/language-service",
+      "typescriptMajor": 6,
+      "plugin": "@effect/language-service",
+      "tsconfig": "tsconfig.base.json",
+      "prepare": "effect-language-service patch",
+      "vscodeUseTsgo": false,
+      "diagnosticSeverity": {
+        "unstableApiUsage": "suggestion"
+      },
+      "cli": {
+        "diagnostics": "effect-language-service diagnostics --format json",
+        "scripts": [
+          "effect:diagnostics"
+        ]
+      },
+      "catalog": "docs/DEPENDENCY-CATALOG.md"
+    },
+    "mcp": {
+      "cursorMcpJson": ".cursor/mcp.json",
+      "servers": {
+        "effect-docs": {
+          "package": "effect-mcp",
+          "source": "https://github.com/tim-smart/effect-mcp",
+          "command": "npx",
+          "args": [
+            "-y",
+            "effect-mcp@latest"
+          ],
+          "tools": [
+            "effect_docs_search",
+            "get_effect_doc"
+          ]
+        }
+      },
+      "effectSolutions": {
+        "enabled": false,
+        "package": "effect-solutions",
+        "authority": "secondary",
+        "cli": "bunx effect-solutions@latest",
+        "note": "Enable for scenario patterns only; AGENTS.md + repos/effect win on conflict."
+      }
+    }
+  },
+  "examples": [],
+  "packageManager": "bun",
+  "note": "Publishable Effect library. Root package is the library; packages/effect-oxc is lint-only.",
+  "createdAt": "2026-11-18T15:20:45.828Z",
+  "cliVersion": "0.1.3",
+  "reproducibleCommand": "bunx create-effect-t-stack@0.1.3 effect-atom-nsh --yes --template library"
+}

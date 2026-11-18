@@ -1,0 +1,20 @@
+{
+  "name": "@effect-atom-nsh/effect-oxc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Owned copy of unpublished @effect/oxc. Replace with the npm package when Effect publishes it.",
+  "exports": {
+    "./oxlint": "./src/oxlint/index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@oxlint/plugins": "^1.93.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6"
+  }
+}
